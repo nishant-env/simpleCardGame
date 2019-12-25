@@ -1,0 +1,80 @@
+class Deck
+{
+  // Collection of all 52 cards in a deck 
+  List<Cards> cards =[];    //It is similar to array but data type is of Cards
+  
+  //Constructor that initializes all the 52 cards as soon as it is called
+  Deck()
+  {
+    var types = ['Diamond','Spade','Hearts','Clubs'];
+    var ranks = ['Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Jack','Queen','King'];
+  
+  for (var type in types)
+  {
+    for (var rank in ranks)
+    {
+      var card = new Cards(type,rank);
+      cards.add(card);
+    }}
+  }
+  
+  String toString()
+  {
+    /* If we call toString of cards list, since it is of type Cards, so for every data in the list, toString from Cards class gets called. So to get the desired output we redefine the toString of Cards class */
+    return cards.toString();
+  }
+  // Creating Shuffle Functionality
+  Shuffle()
+  {
+   cards.shuffle(); 
+  }
+  //Lets create a functionality to find all cards of given type 
+ findMyCard(type)
+ {
+   return cards.where((card)
+               {
+                 return card.type == type;
+               });
+ }
+ deal(int number)
+ {
+   var temp = cards.sublist(0,number);
+   cards = cards.sublist(number);
+   return temp;
+   
+ }
+ removeCard(String type,String rank)
+ {
+   cards.removeWhere((card)
+                     {
+                      return (card.rank == rank && card.type== type);
+                     });
+ }
+  
+}
+
+class Cards
+{
+  // Defines the individual card
+ String rank;
+ String type;
+  Cards(this.type,this.rank);
+  // toString() defines what to print, its like modifing print statement 
+  String toString()
+  {
+    return '$rank of $type';
+  }
+}
+main()
+{
+ var deck = new Deck();
+  //deck.Shuffle();
+   // print(deck.findMyCard('Diamond'));
+  print(deck);
+  deck.removeCard('Diamond','Ace');
+  print(deck);
+  
+  //print(deck.deal(10));
+  //print(deck);
+  
+}
